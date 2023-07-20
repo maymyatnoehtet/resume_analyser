@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+
+{% block title %}Home Page{% endblock %} 
+
+{% block content%}
+  <section class="hero">
+    <h1>Welcome to PROFILYSER</h1>
+    <p>
+      Please sumbit your candidates document to get them score on the job
+      description for the role
+    </p>
+    <a href="{{ url_for('views.upload') }}" class="action-btn">Click to Begin</a>
+  </section>
+{% endblock %}
