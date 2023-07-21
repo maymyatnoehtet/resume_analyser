@@ -3,11 +3,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='upload.js') }}"></script>
     <title>{% block title %}{% endblock %}</title>
   </head>
   <section class="nav-section">
-    <div class="nav-title"><a href="{{ url_for('views.home') }}">Profilyser</a></div>
+    <div class="nav-title">
+      <a href="{{ url_for('views.home') }}">Profilyser</a>
+    </div>
     <ul class="nav-links">
       <li><a href="{{ url_for('views.home') }}">Home</a></li>
       <li><a href="{{ url_for('views.upload') }}">Upload</a></li>
@@ -16,16 +22,12 @@
     </ul>
   </section>
   <body>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
-    {% block content %}{% endblock %}
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
   </body>
 </html>
