@@ -3,9 +3,14 @@
 
 from flask import Flask
 from views import views
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+
+load_dotenv()
+
+app.secret_key = os.getenv("SECRET_KEY")
 
 @app.template_filter('round_to_decimal')
 def round_to_decimal(value, decimals=0):
