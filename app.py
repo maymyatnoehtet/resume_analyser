@@ -19,7 +19,7 @@ def round_to_decimal(value, decimals=0):
     except (ValueError, TypeError):
         return value
 
-app.register_blueprint(views, url_prefix="/views")
+app.register_blueprint(views)
 
 if os.getenv('ENVIRONMENT') == "production":
     port = os.getenv('PROD_PORT')
