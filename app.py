@@ -3,14 +3,14 @@
 
 from flask import Flask
 from views import views
-from dotenv import load_dotenv
 import os
-
-app = Flask(__name__)
+from dotenv import load_dotenv
 
 load_dotenv()
 
-app.secret_key = os.getenv("SECRET_KEY")
+app = Flask(__name__)
+
+app.secret_key = os.getenv('SECRET_KEY')
 
 @app.template_filter('round_to_decimal')
 def round_to_decimal(value, decimals=0):
@@ -21,5 +21,14 @@ def round_to_decimal(value, decimals=0):
 
 app.register_blueprint(views, url_prefix="/views")
 
+if os.getenv('ENVIRONMENT') == "production":
+    port = os.getenv('PROD_PORT')
+    host = os.getenv('PROD_HOST')
+    debug = False
+else:
+    port = os.getenv('DEV_PORT')
+    host = os.getenv('DEV_HOST')
+    debug = True
+
 if __name__ == "__main__":
-  app.run(debug=True, port=3000)
+  app.run(debug=debug, port=port, host=host)
