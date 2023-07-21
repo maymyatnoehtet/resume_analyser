@@ -12,8 +12,8 @@ html {
 
 /* FLASH Message */
 .flash-msg {
-  background-color: gray;
-  color: black;
+  background-color: #0e5a69;
+  color: #f9fdfe;
   text-align: center;
   padding: 10px 20px;
 }
@@ -111,6 +111,7 @@ html {
   font-size: 50px;
   font-weight: 500;
   color: #0b444f;
+  text-transform: capitalize;
 }
 
 .upload-form {
