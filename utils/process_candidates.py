@@ -1,5 +1,6 @@
 # Import the PyPDF2 library to work with PDF files
 import PyPDF2
+import os
 
 # Define a function to process candidate resumes and find their similarity to job requirements
 def process_candidates(candidate_files, job_requirements):
@@ -64,7 +65,8 @@ def process_candidates(candidate_files, job_requirements):
         if candidate_resume_text:
             # Calculate similarity between job requirements and candidate qualifications
             similarity = calculate_similarity(job_requirements, candidate_resume_text)
-            candidate_scores[candidate_file] = similarity
+            candidate_filename = os.path.basename(candidate_file)
+            candidate_scores[candidate_filename] = similarity
         else:
             failed_candidates.append(candidate_file)
 

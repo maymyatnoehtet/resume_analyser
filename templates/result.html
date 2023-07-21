@@ -1,3 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Result{% endblock %} {% block content
+%}
 
-{% block title %}Result{% endblock %}
+<section class="result-section">
+  <div class="result-title">Result</div>
+  <div class="result-body">
+    {% for candidate, score in candidate_scores.items() %}
+    <div class="result-candidate">
+      <div class="candidate">{{candidate}}</div>
+      <div class="score">{{ score | round_to_decimal(2) }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

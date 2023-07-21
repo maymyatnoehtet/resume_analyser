@@ -9,6 +9,19 @@ content %}
     method="post"
     enctype="multipart/form-data"
   >
+    <label class="upload-form-textlabel" for="longText"
+      >Enter or paste your job requirements:</label
+    >
+    <textarea
+      class="upload-form-textarea"
+      id="longText"
+      name="longText"
+      placeholder="Please enter your job requirements here..."
+    ></textarea>
+
+    <label class="upload-form-textlabel" for="longText"
+      >Please choose your candidate files to upload (PDF only)</label
+    >
     <input
       class="upload-form-file"
       id="upload-form-file"
@@ -19,7 +32,7 @@ content %}
     />
     <input class="upload-form-submit" type="submit" value="Upload" />
   </form>
-  <h3>Selected Files:</h3>
+  <p class="upload-selected-file">Selected Files:</p>
   <ul id="fileList"></ul>
 </section>
 

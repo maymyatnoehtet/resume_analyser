@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 import os
 from utils.process_candidates import process_candidates
+from collections import OrderedDict
+
 views = Blueprint("views", __name__)
 
 @views.route("/")
@@ -15,6 +17,14 @@ def about():
 @views.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
+        job_requirements  = request.form.get('longText')
+        session['job_requirements'] = job_requirements
+        print(session['job_requirements'])
+
+        if not job_requirements:
+            flash('Job requirement is empty!')
+            return redirect(url_for('views.upload')) 
+        
         uploaded_files = request.files.getlist('pdf_files')
 
         for file in uploaded_files:
@@ -35,5 +45,7 @@ def upload():
 def result():
     folder_path = os.path.abspath("./static/candidate_files")
     candidate_files = [os.path.join(folder_path, filename) for filename in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, filename))]
-    process_candidates(candidate_files)
-    return render_template("result.html")
+    if 'job_requirements' in session:
+        candidate_scores, failed_candidates = process_candidates(candidate_files, session.get('job_requirements'))
+    ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
+    return render_template("result.html", candidate_scores=ordered_by_values)
