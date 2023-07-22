@@ -59,7 +59,7 @@ def upload():
 
         if not job_requirements:
             flash('Job requirement is empty!')
-            return redirect(url_for('upload'))
+            return redirect(url_for('views.upload'))
 
         uploaded_files = request.files.getlist('pdf_files')
 
@@ -69,10 +69,10 @@ def upload():
                 upload_to_github(file.filename, pdf_content)
             else:
                 flash('No file selected or something went wrong.')
-                return redirect(url_for('upload'))
+                return redirect(url_for('views.upload'))
 
         flash('File uploaded successfully.')
-        return redirect(url_for('result'))
+        return redirect(url_for('views.result'))
 
     else:
         return render_template("upload.html")
@@ -96,7 +96,7 @@ def upload_to_github(filename, content):
         print(f'Successfully uploaded {filename} to GitHub.')
     else:
         print(f'Failed to upload {filename} to GitHub. Status code: {response.status_code}')
-        print(response.json())  
+        print(response.json())
 
 # remove files from local directory
 # def remove_files_from_directory(directory):
@@ -142,16 +142,25 @@ def remove_files_from_github():
         print(response.json())
 
 # Getting pdf contents from GitHub
-def get_pdf_content_from_github(filename):
+def get_files_from_github():
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
     }
 
-    raw_url = f'https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB_REPO}/main/static/candidate_files/{filename}'
-    response = requests.get(raw_url, headers=headers)
+    folder_path = 'static/candidate_files'
+    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
+
+    response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
-        return response.content
+        files = response.json()
+        pdf_files = []
+        for file_info in files:
+            if 'name' in file_info and 'download_url' in file_info:
+                file_name = file_info['name']
+                download_url = file_info['download_url']
+                pdf_files.append((file_name, download_url))
+        return pdf_files
     else:
         return None
 
@@ -165,19 +174,42 @@ def get_pdf_content_from_github(filename):
 #     remove_files_from_directory(folder_path)
 #     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
 #     return render_template("result.html", candidate_scores=ordered_by_values)
+@views.route('/result')
 def result():
+    pdf_files = get_files_from_github()
+    candidate_files = [items[1] for items in pdf_files]
+    print(candidate_files)
+    if candidate_files is None:
+        flash('Failed to fetch PDF files from GitHub.')
+        return redirect(url_for('views.upload'))
+
+    if 'job_requirements' in session:
+        candidate_scores = process_candidates(candidate_files, session.get('job_requirements'))
+        print(candidate_scores)
+    remove_files_from_github()
+    print('Files removed successfully.')
+    ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
+    return render_template("result.html", candidate_scores=ordered_by_values)
+
+
     folder_path = os.path.abspath("./static/candidate_files")
     candidate_files = [filename for filename in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, filename))]
     
+    # debug
+    print('Folder path: ', folder_path)
+    print('Candidate files', candidate_files)
+
     if 'job_requirements' in session:
         candidate_scores, failed_candidates = process_candidates(candidate_files, session.get('job_requirements'))
 
     # Fetch the PDF content from GitHub and pass it to the process_candidates function
     for filename in candidate_files:
         pdf_content = get_pdf_content_from_github(filename)
+        print(f'Sucessfully retrieve {filename}.')
         if pdf_content is not None:
             candidate_scores = process_candidates([(filename, pdf_content)], session.get('job_requirements'), candidate_scores)
     
     remove_files_from_github()
+    print('Files removed successfully.')
     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
     return render_template("result.html", candidate_scores=ordered_by_values)

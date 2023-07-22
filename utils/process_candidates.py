@@ -1,15 +1,22 @@
 # Import the PyPDF2 library to work with PDF files
 import PyPDF2
 import os
+import requests
+import io
+from urllib.parse import urlparse
 
 # Define a function to process candidate resumes and find their similarity to job requirements
 def process_candidates(candidate_files, job_requirements):
 
     # Define a function to extract text from a PDF file
-    def extract_text_from_pdf(file):
+    def extract_text_from_pdf(url):
         try:
+            # TEST 
+            response = requests.get(url)
+            candidate_file = io.BytesIO(response.content)
+
             # Create a PdfReader object to read the PDF file
-            pdf_reader = PyPDF2.PdfReader(file)
+            pdf_reader = PyPDF2.PdfReader(candidate_file)
 
             # Initialize an empty string to store the extracted text
             text = ""
@@ -57,19 +64,23 @@ def process_candidates(candidate_files, job_requirements):
     failed_candidates = []
 
     # Loop through each candidate file and process their resume
-    for candidate_file in candidate_files:
+    for candidate_file_url in candidate_files:
+        print('Candidate file:', candidate_file_url)
         # Extract text from the candidate's resume
-        candidate_resume_text = extract_text_from_pdf(candidate_file)
+        candidate_resume_text = extract_text_from_pdf(candidate_file_url)
 
         # Check if text extraction was successful
         if candidate_resume_text:
             # Calculate similarity between job requirements and candidate qualifications
             similarity = calculate_similarity(job_requirements, candidate_resume_text)
-            candidate_filename = os.path.basename(candidate_file)
+            parsed_url = urlparse(candidate_file_url)
+            file_path = parsed_url.path
+            candidate_filename = os.path.basename(file_path)
+            print(candidate_filename)
             candidate_scores[candidate_filename] = similarity
         else:
-            failed_candidates.append(candidate_file)
+            failed_candidates.append(candidate_file_url)
 
     for key,value in candidate_scores.items():
         print(f"{key}: {value}")
-    return candidate_scores,failed_candidates
+    return candidate_scores
