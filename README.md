@@ -5,6 +5,9 @@ Profilyser is a web application built using Python Flask that allows recruiters 
 ## Demo Video Link
 [https://drive.google.com/drive/u/1/my-drive](https://drive.google.com/file/d/1VKUwsyXFd5UqtRbBABMEyRJA5VbYn-PU/view?usp=drive_link)
 
+## Deployed App Link
+[https://profilyser-resume-analyser.azurewebsites.net/
+](https://profilyser-resume-analyser.azurewebsites.net/)
 ## Features
 
 - **Job Description Analysis**: Users can paste or write the job description in a text box, and the app will use this description as the basis for evaluating the candidates' resumes.
@@ -50,6 +53,8 @@ To deploy Profilyser on Azure, follow these steps:
 ## Known Issues
 
 - **500 Internal Server Error**: There is currently an issue with the app deployment on Azure that causes the internal server error after uploading files. Debugging is required to identify the root cause and implement a fix.
+
+- **Scoring Inaccuracy**: I have observed that the scoring function  provides inaccurate results. Entering the same PDF document as the job description results in unexpectedly low scores. Investigation and debugging of the scoring algorithm are necessary to address this issue and ensure the accuracy of the evaluation process.
 
 ## Future Improvements
 
