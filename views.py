@@ -177,6 +177,7 @@ def get_files_from_github():
 @views.route('/result')
 def result():
     pdf_files = get_files_from_github()
+    print(pdf_files)
     candidate_files = [items[1] for items in pdf_files]
     print(candidate_files)
     if candidate_files is None:
