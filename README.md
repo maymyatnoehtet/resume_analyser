@@ -62,4 +62,4 @@ To improve Profilyser, consider implementing the following features:
 
 ## Support and Contributions
 
-For support or to report issues, please contact [may.mn.htet@gmail.com]. Contributions to improve Profilyser are welcome. Please submit pull requests to the [[[GitHub rep(https://github.com/maymyatnoehtet/resume_analyser)https://github.com/maymyatnoehtet/resume_analyser]](https://github.com/maymyatnoehtet/resume_analyser)https://github.com/maymyatnoehtet/resume_analyser.
+For support or to report issues, please contact [may.mn.htet@gmail.com]. Contributions to improve Profilyser are welcome. Please submit pull requests to the https://github.com/maymyatnoehtet/resume_analyser.
