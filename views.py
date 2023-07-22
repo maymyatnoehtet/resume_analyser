@@ -174,7 +174,7 @@ def get_files_from_github():
 #     remove_files_from_directory(folder_path)
 #     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
 #     return render_template("result.html", candidate_scores=ordered_by_values)
-@views.route('/result')
+@views.route('/result', methods=['GET'])
 def result():
     pdf_files = get_files_from_github()
     print(pdf_files)
