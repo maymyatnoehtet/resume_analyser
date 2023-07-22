@@ -3,7 +3,7 @@
 Profilyser is a web application built using Python Flask that allows recruiters to analyze job candidates' resumes and score them based on a provided job description. The app is designed to simplify the hiring process by automatically evaluating the suitability of candidates for a specific job, making it easier for recruiters to find the best match for their open positions.
 
 ## Demo Video Link
-https://drive.google.com/drive/u/1/my-drive
+[https://drive.google.com/drive/u/1/my-drive](https://drive.google.com/file/d/1VKUwsyXFd5UqtRbBABMEyRJA5VbYn-PU/view?usp=drive_link)
 
 ## Features
 
