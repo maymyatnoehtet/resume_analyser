@@ -62,11 +62,4 @@ To improve Profilyser, consider implementing the following features:
 
 ## Support and Contributions
 
-For support or to report issues, please contact [your contact email]. Contributions to improve Profilyser are welcome. Please submit pull requests to the [GitHub repository link].
-
-## License
-
-This project is licensed under [LICENSE_NAME]. See the [LICENSE_FILE] file for more details.
-
----
-Please note that this README file is a template, and you should customize it to suit your specific app implementation, such as adding your GitHub repository link, license information, and contact email.
+For support or to report issues, please contact [may.mn.htet@gmail.com]. Contributions to improve Profilyser are welcome. Please submit pull requests to the [[[GitHub rep(https://github.com/maymyatnoehtet/resume_analyser)https://github.com/maymyatnoehtet/resume_analyser]](https://github.com/maymyatnoehtet/resume_analyser)https://github.com/maymyatnoehtet/resume_analyser.
