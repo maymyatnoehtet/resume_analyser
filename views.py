@@ -22,33 +22,6 @@ def home():
 def about():
     return render_template("about.html")
 
-# @views.route('/upload', methods=['GET', 'POST'])
-# def upload():
-#     if request.method == 'POST':
-#         job_requirements  = request.form.get('longText')
-#         session['job_requirements'] = job_requirements
-#         print(session['job_requirements'])
-
-#         if not job_requirements:
-#             flash('Job requirement is empty!')
-#             return redirect(url_for('views.upload')) 
-        
-#         uploaded_files = request.files.getlist('pdf_files')
-
-#         for file in uploaded_files:
-#             if file.filename != '':
-#                 file_path = os.path.join('static/candidate_files/', file.filename)
-#                 file.save(file_path)
-#             else:
-#                 flash('No file selected or something went wrong.')
-#                 return redirect(url_for('views.upload')) 
-
-#         flash('File uploaded successfully.')
-#         return redirect(url_for('views.result'))
-    
-#     else:
-#         return render_template("upload.html")
-
 # Upload pdf files
 @views.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -97,17 +70,6 @@ def upload_to_github(filename, content):
     else:
         print(f'Failed to upload {filename} to GitHub. Status code: {response.status_code}')
         print(response.json())
-
-# remove files from local directory
-# def remove_files_from_directory(directory):
-#     try:
-#         for file in os.listdir(directory):
-#             file_path = os.path.join(directory, file)
-#             if os.path.isfile(file_path):
-#                 os.remove(file_path)
-#         print("All files in the directory have been removed.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
 
 # Delete files from Github that we upload
 def remove_files_from_github():
@@ -164,16 +126,6 @@ def get_files_from_github():
     else:
         return None
 
-# @views.route("/result")
-# def result():
-#     folder_path = os.path.abspath("./static/candidate_files")
-#     candidate_files = [os.path.join(folder_path, filename) for filename in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, filename))]
-#     if 'job_requirements' in session:
-#         candidate_scores, failed_candidates = process_candidates(candidate_files, session.get('job_requirements'))
-    
-#     remove_files_from_directory(folder_path)
-#     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
-#     return render_template("result.html", candidate_scores=ordered_by_values)
 @views.route('/result', methods=['GET'])
 def result():
     pdf_files = get_files_from_github()
@@ -188,28 +140,5 @@ def result():
         candidate_scores = process_candidates(candidate_files, session.get('job_requirements'))
         print(candidate_scores)
     remove_files_from_github()
-    ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
-    return render_template("result.html", candidate_scores=ordered_by_values)
-
-
-    folder_path = os.path.abspath("./static/candidate_files")
-    candidate_files = [filename for filename in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, filename))]
-    
-    # debug
-    print('Folder path: ', folder_path)
-    print('Candidate files', candidate_files)
-
-    if 'job_requirements' in session:
-        candidate_scores, failed_candidates = process_candidates(candidate_files, session.get('job_requirements'))
-
-    # Fetch the PDF content from GitHub and pass it to the process_candidates function
-    for filename in candidate_files:
-        pdf_content = get_pdf_content_from_github(filename)
-        print(f'Sucessfully retrieve {filename}.')
-        if pdf_content is not None:
-            candidate_scores = process_candidates([(filename, pdf_content)], session.get('job_requirements'), candidate_scores)
-    
-    remove_files_from_github()
-    print('Files removed successfully.')
     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
     return render_template("result.html", candidate_scores=ordered_by_values)

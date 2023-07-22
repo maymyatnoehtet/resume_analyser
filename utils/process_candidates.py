@@ -11,7 +11,7 @@ def process_candidates(candidate_files, job_requirements):
     # Define a function to extract text from a PDF file
     def extract_text_from_pdf(url):
         try:
-            # TEST 
+            # retrieve the pdf file from the url 
             response = requests.get(url)
             candidate_file = io.BytesIO(response.content)
 
@@ -50,14 +50,6 @@ def process_candidates(candidate_files, job_requirements):
 
         # Return the calculated similarity
         return similarity
-
-    # Define a function to get user input for job requirements
-    # def get_user_input():
-    #     job_requirements = input("Please enter the job requirements or skills: ")
-    #     return job_requirements
-
-    # # Get user input for job requirements
-    # job_requirements = get_user_input()
 
     # Dictionary to store candidate's similarity scores
     candidate_scores = {}
