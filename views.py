@@ -9,6 +9,7 @@ import base64
 views = Blueprint("views", __name__)
 load_dotenv()
 
+# Retrieve data from .env file
 GITHUB_USERNAME = os.getenv('GITHUB_USERNAME')
 GITHUB_REPO = os.getenv('GITHUB_REPO')
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
@@ -128,16 +129,19 @@ def get_files_from_github():
 
 @views.route('/result', methods=['GET'])
 def result():
-    pdf_files = get_files_from_github()
-    print(pdf_files)
-    candidate_files = [items[1] for items in pdf_files]
-    print(candidate_files)
-    if candidate_files is None:
+    candidate_files = get_files_from_github()
+    # print(candidate_files)
+    if not candidate_files:
+        flash('No result to display.')
+        return redirect(url_for('views.upload'))
+    candidate_filepaths = [items[1] for items in candidate_files]
+    print(candidate_filepaths)
+    if candidate_filepaths is None:
         flash('Failed to fetch PDF files from GitHub.')
         return redirect(url_for('views.upload'))
 
     if 'job_requirements' in session:
-        candidate_scores = process_candidates(candidate_files, session.get('job_requirements'))
+        candidate_scores = process_candidates(candidate_filepaths, session.get('job_requirements'))
         print(candidate_scores)
     remove_files_from_github()
     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
