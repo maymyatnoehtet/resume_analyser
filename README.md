@@ -8,7 +8,7 @@ Profilyser is a web application built using Python Flask that allows recruiters 
 
 ## Deployed App Link
 
-[https://profilyser-resume-analyser.azurewebsites.net/](https://profilyser-resume-analyser.azurewebsites.net/)
+https://profilyser-resume-analyser.azurewebsites.net/home
 
 ## Features
 
