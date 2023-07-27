@@ -13,6 +13,7 @@ load_dotenv()
 GITHUB_USERNAME = os.getenv('GITHUB_USERNAME')
 GITHUB_REPO = os.getenv('GITHUB_REPO')
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+GITHUB_BRANCH = os.getenv('GITHUB_BRANCH')
 
 @views.route("/")
 @views.route("/home")
@@ -55,6 +56,7 @@ def upload():
 def upload_to_github(filename, content):
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
+        "Accept": "application/vnd.github.v3+json",
     }
 
     url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/static/candidate_files/{filename}'
@@ -62,6 +64,7 @@ def upload_to_github(filename, content):
     data = {
         'message': f'Add {filename}',
         'content': base64.b64encode(content).decode(),
+        'branch': GITHUB_BRANCH,
     }
 
     response = requests.put(url, headers=headers, json=data)
@@ -72,14 +75,15 @@ def upload_to_github(filename, content):
         print(f'Failed to upload {filename} to GitHub. Status code: {response.status_code}')
         print(response.json())
 
-# Delete files from Github that we upload
-def remove_files_from_github():
+# Delete files from Github that were uploaded
+# def remove_files_from_github():
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
+        "Accept": "application/vnd.github.v3+json",
     }
 
     folder_path = 'static/candidate_files'
-    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
+    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}?ref={GITHUB_BRANCH}'
 
     response = requests.get(url, headers=headers)
 
@@ -89,7 +93,7 @@ def remove_files_from_github():
             if 'name' in file_info and 'sha' in file_info:
                 file_name = file_info['name']
                 file_sha = file_info['sha']
-                delete_url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}/{file_name}'
+                delete_url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}/{file_name}?ref={GITHUB_BRANCH}'
                 data = {
                     'message': f'Remove {file_name}',
                     'sha': file_sha,
@@ -111,7 +115,7 @@ def get_files_from_github():
     }
 
     folder_path = 'static/candidate_files'
-    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
+    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}?ref={GITHUB_BRANCH}'
 
     response = requests.get(url, headers=headers)
 
