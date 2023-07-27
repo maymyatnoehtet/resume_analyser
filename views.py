@@ -86,7 +86,7 @@ def remove_files_from_github():
     url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
 
     data = {
-        'branch': GITHUB_BRANCH,
+        'ref': GITHUB_BRANCH,
     }
     response = requests.get(url, headers=headers, json=data)
     print(response)
