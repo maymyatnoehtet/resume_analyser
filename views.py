@@ -51,7 +51,7 @@ def upload():
     else:
         return render_template("upload.html")
 
-# Upload files to github
+# Upload files to Azure
 def upload_to_azure(filename, content):
     blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
     container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME)
@@ -72,6 +72,7 @@ def remove_files_from_azure():
         blob_client = container_client.get_blob_client(blob)
         blob_client.delete_blob()
 
+# Get files from Azure
 def get_files_from_azure():
     blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
     container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME)
