@@ -1,6 +1,12 @@
 ## Profilyser
 
-Profilyser is a powerful web application designed to streamline the recruitment process by analyzing candidates' resumes and matching them with a given job description. With its user-friendly features and seamless deployment on Azure, Profilyser is the ideal tool for recruiters seeking to identify the best-suited candidates efficiently.
+Profilyser is a web application designed to streamline the recruitment process by analyzing candidates' resumes and matching them with a given job description. With its user-friendly features and seamless deployment on Azure, Profilyser is the ideal tool for recruiters seeking to identify the best-suited candidates efficiently.
+
+### Demo Video
+https://drive.google.com/file/d/1utYxkjJIr0aSp8eTFQGth8BuVMd49a72/view?usp=sharing
+
+### Deployed App
+https://profilyser-resume-analyser.azurewebsites.net/home
 
 ### Features
 
