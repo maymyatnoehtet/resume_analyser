@@ -4,7 +4,7 @@ Profilyser is a web application built using Python Flask that allows recruiters 
 
 ## Demo Video Link
 
-[https://drive.google.com/drive/u/1/my-drive](https://drive.google.com/file/d/1VKUwsyXFd5UqtRbBABMEyRJA5VbYn-PU/view?usp=drive_link)
+https://drive.google.com/file/d/1utYxkjJIr0aSp8eTFQGth8BuVMd49a72/view?usp=sharing
 
 ## Deployed App Link
 
