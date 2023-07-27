@@ -86,7 +86,7 @@ def remove_files_from_github():
     url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
 
     response = requests.get(url, headers=headers)
-
+    print(response)
     if response.status_code == 200:
         files = response.json()
         for file_info in files:
@@ -97,7 +97,7 @@ def remove_files_from_github():
                 data = {
                     'message': f'Remove {file_name}',
                     'sha': file_sha,
-                    'branch': {GITHUB_BRANCH},
+                    'branch': GITHUB_BRANCH,
                 }
                 response = requests.delete(delete_url, headers=headers, json=data)
                 if response.status_code == 200:
