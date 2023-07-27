@@ -85,7 +85,11 @@ def remove_files_from_github():
     folder_path = 'static/candidate_files'
     url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
 
-    response = requests.get(url, headers=headers)
+    data = {
+        'message': f'Fetch files from {folder_path}',
+        'branch': GITHUB_BRANCH,
+    }
+    response = requests.get(url, headers=headers, json=data)
     print(response)
     if response.status_code == 200:
         files = response.json()
