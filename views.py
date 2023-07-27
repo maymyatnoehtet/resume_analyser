@@ -76,7 +76,7 @@ def upload_to_github(filename, content):
         print(response.json())
 
 # Delete files from Github that were uploaded
-# def remove_files_from_github():
+def remove_files_from_github():
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
         "Accept": "application/vnd.github.v3+json",
@@ -93,10 +93,11 @@ def upload_to_github(filename, content):
             if 'name' in file_info and 'sha' in file_info:
                 file_name = file_info['name']
                 file_sha = file_info['sha']
-                delete_url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}/{file_name}?ref={GITHUB_BRANCH}'
+                delete_url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}/{file_name}'
                 data = {
                     'message': f'Remove {file_name}',
                     'sha': file_sha,
+                    'branch': {GITHUB_BRANCH},
                 }
                 response = requests.delete(delete_url, headers=headers, json=data)
                 if response.status_code == 200:
@@ -112,6 +113,7 @@ def upload_to_github(filename, content):
 def get_files_from_github():
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
+        "Accept": "application/vnd.github.v3+json",
     }
 
     folder_path = 'static/candidate_files'
