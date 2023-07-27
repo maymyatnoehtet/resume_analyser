@@ -126,8 +126,7 @@ def get_files_from_github():
     print(response.status_code)
     print(response.content)
     print(response.headers)
-
-
+    
     if response.status_code == 200:
         files = response.json()
         pdf_files = []
