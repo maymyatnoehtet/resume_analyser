@@ -26,12 +26,12 @@
 //   });
 // });
 
-console.log("script connected");
+// console.log("script connected");
 
 // Wrap your JavaScript code in an event listener to ensure it runs after the DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
   var element = document.getElementById("upload-form-file");
-  console.log(element); // to debug
+  // console.log(element); // to debug
   if (element) {
     console.log("Element found: ", element.className);
 
