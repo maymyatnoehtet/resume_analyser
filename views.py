@@ -83,7 +83,7 @@ def remove_files_from_github():
     }
 
     folder_path = 'static/candidate_files'
-    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}?ref={GITHUB_BRANCH}'
+    url = f'https://api.github.com/repos/{GITHUB_USERNAME}/{GITHUB_REPO}/contents/{folder_path}'
 
     response = requests.get(url, headers=headers)
 
