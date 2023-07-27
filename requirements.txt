@@ -4,4 +4,4 @@ gunicorn
 python-dotenv
 requests
 flash
-# base64
+azure-storage-blob
