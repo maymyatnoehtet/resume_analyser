@@ -1,61 +1,54 @@
-# Profilyser - Resume Analyzing App
+## Profilyser
 
-Profilyser is a web application built using Python Flask that allows recruiters to analyze job candidates' resumes and score them based on a provided job description. The app is designed to simplify the hiring process by automatically evaluating the suitability of candidates for a specific job, making it easier for recruiters to find the best match for their open positions.
+Profilyser is a powerful web application designed to streamline the recruitment process by analyzing candidates' resumes and matching them with a given job description. With its user-friendly features and seamless deployment on Azure, Profilyser is the ideal tool for recruiters seeking to identify the best-suited candidates efficiently.
 
-## Demo Video Link
+### Features
 
-https://drive.google.com/file/d/1utYxkjJIr0aSp8eTFQGth8BuVMd49a72/view?usp=sharing
+- **Job Description Analysis**: Analyze job descriptions provided by users to evaluate candidates' resumes effectively.
 
-## Deployed App Link
+- **Resume Upload**: Recruiters can easily upload candidates' resumes in PDF format through the web interface for analysis.
 
-https://profilyser-resume-analyser.azurewebsites.net/home
+- **Scoring**: Each candidate's resume is scored based on its alignment with the specified job description.
 
-## Features
+### Prerequisites
 
-- **Job Description Analysis**: Users can paste or write the job description in a text box, and the app will use this description as the basis for evaluating the candidates' resumes.
-
-- **Resume Upload**: Recruiters can upload candidates' resumes in PDF format through the web interface. The app will analyze the contents of these resumes against the provided job description.
-
-- **Scoring**: Each candidate's resume will be scored based on how well it aligns with the job description.
-
-## Prerequisites
-
-Before running the Profilyser app, ensure you have the following:
+Before running the Profilyser app, please ensure you have the following:
 
 1. Python 3.11 installed on your system.
 
-2. The required Python packages installed. You can install them using the following command:
+2. The required Python packages installed. Refer to the `requirements.txt` file for installation using the following command:
 
    ```
-   pip install flask azure-storage-blob python-docx PyPDF2
+   pip install -r requirements.txt
    ```
 
-3. A GitHub account with a repository where the resume files and analysis results will be stored.
+3. To run in a local environment, use the following command:
 
-4. GitHub personal access token with sufficient permissions to upload files to the repository.
+   ```
+   python3 app.py
+   ```
 
-5. Azure account to deploy the app and set up the database for storing resume files and analysis results.
+4. An Azure account to deploy the app and set up the database for storing resume files.
 
-## Deployment
+### Deployment
 
 To deploy Profilyser on Azure, follow these steps:
 
 1. Create a new Azure Web App service.
 2. Deploy the app files to the Azure Web App.
-3. Configure the required environment variables (e.g., GitHub token, port, host, environment) on the Azure Web App.
+3. Configure the required environment variables (e.g., port, host, environment) on the Azure Web App.
+4. Create a new Azure Storage Account service.
 
-## Future Improvements
+### Future Improvements
 
-To improve Profilyser, consider implementing the following features:
+To enhance Profilyser further, consider implementing the following features:
 
-- **User Authentication**: Introduce user authentication to secure the app and allow only authorized users to access it.
+- **User Authentication**: Introduce user authentication to secure the app and restrict access to authorized users only.
 
 - **Customizable Scoring System**: Allow recruiters to customize the scoring mechanism based on their specific evaluation criteria.
 
 - **Data Visualization**: Provide visual representations of candidates' scores and comparisons for easier analysis.
 
-- **Email Notifications**: Notify recruiters when a new resume is uploaded or when analysis results are ready.
+### Support and Contributions
 
-## Support and Contributions
-
-For support or to report issues, please contact may.mn.htet@gmail.com. Contributions to improve Profilyser are welcome. Please submit pull requests to the https://github.com/maymyatnoehtet/resume_analyser.
+For support or to report issues, please contact may.mn.htet@gmail.com. Contributions to improve Profilyser are welcome. Please submit pull requests to the [GitHub repository](https://github.com/maymyatnoehtet/resume_analyser).
