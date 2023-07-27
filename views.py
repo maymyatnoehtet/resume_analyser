@@ -76,7 +76,7 @@ def upload_to_github(filename, content):
         print(response.json())
 
 # Delete files from Github that were uploaded
-def remove_files_from_github():
+# def remove_files_from_github():
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
         "Accept": "application/vnd.github.v3+json",
@@ -156,6 +156,6 @@ def result():
     if 'job_requirements' in session:
         candidate_scores = process_candidates(candidate_filepaths, session.get('job_requirements'))
         print(candidate_scores)
-    remove_files_from_github()
+    # remove_files_from_github()
     ordered_by_values = OrderedDict(sorted(candidate_scores.items(), key=lambda item: item[1], reverse=True))
     return render_template("result.html", candidate_scores=ordered_by_values)
