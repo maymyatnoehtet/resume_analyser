@@ -11,8 +11,8 @@ views = Blueprint("views", __name__)
 load_dotenv()
 
 ## Azure Blob Storage configuration
-AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=profilyser;AccountKey=eozBGihPdqxH5M4oTOBfRd0qhf+AR+ewqSsGHasx+7y8iLag1dJRBBFaJfiTJT3yOANmHzg1jBle+AStKUeDVQ==;EndpointSuffix=core.windows.net'
-AZURE_CONTAINER_NAME = 'profilyser'
+AZURE_STORAGE_CONNECTION_STRING = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+AZURE_CONTAINER_NAME = os.getenv('AZURE_CONTAINER_NAME')
 
 @views.route("/")
 @views.route("/home")
